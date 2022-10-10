@@ -1,0 +1,48 @@
+body {
+  background-color: azure;
+}
+
+p {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+.grid {
+  display: inline-grid;
+}
+.element {
+  background-color: aquamarine;
+}
+.box {
+  width: 100px;
+  background-color: #ffff;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 20px;
+  box-shadow: 4px 3px 2px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+.red {
+  border-left: solid rgba(224, 11, 11, 0.933);
+  transition: 0.3s;
+}
+.green {
+  border-left: solid rgba(12, 197, 43, 0.933);
+  transition: 0.3s;
+}
+.blue {
+  border-left: solid rgba(12, 15, 197, 0.933);
+  transition: 0.3s;
+}
+.red:hover {
+  transform: scale(1.05);
+}
+.green:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.4);
+}
+
+.blue:hover {
+  transform: scale(1.05);
+  background-color: rgba(0, 0, 0, 0.2);
+}

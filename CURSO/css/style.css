@@ -1,0 +1,24 @@
+html {
+  height: 100%;
+}
+body {
+  background-color: aliceblue;
+  margin: 0px;
+  height: 100%;
+}
+.grid {
+  background-color: tomato;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: repeat(4, 90px);
+  grid-template-rows: repeat(4, 40px);
+  grid-gap: 5px;
+  justify-content: start;
+  align-content: end;
+}
+
+.red {
+  background-color: rosybrown;
+  font-family: "Courier New", Courier, monospace;
+}

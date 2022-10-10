@@ -1,0 +1,49 @@
+.flex {
+  display: flex;
+  background-color: rgb(221, 140, 18);
+  flex-flow: row wrap;
+  height: 200px;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: rgb(221, 152, 152);
+}
+
+.red {
+  background-color: red;
+}
+.blue {
+  background-color: aqua;
+}
+.primero {
+  flex-basis: 60px;
+  flex-grow: 1;
+  order: 0;
+  background-color: red;
+}
+.segundo {
+  order: 1;
+  background-color: blue;
+  align-self: stretch;
+}
+.tercero {
+  order: 2;
+  flex-grow: 2;
+  background-color: rgb(116, 55, 55);
+}
+.cuarto {
+  flex: 2 60px; /*manera de usar dos valores el primero es igual a flex grow (2) 
+                 y el segundo equivale a flex basis (60px)*/
+  order: 3;
+}
+.quinto {
+  order: 4;
+  background-color: rgb(221, 183, 183);
+}
+.sexto {
+  order: 5;
+}
