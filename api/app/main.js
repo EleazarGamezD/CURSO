@@ -1,5 +1,7 @@
-const {json, response} = require ('express');
-const Users = require ('../User');
+//const {json, response} = require ('express');
+//const Users = require ('../User');
+
+const {response} = require ('express');
 
 const loadInitialTemplate = () => {
   const template = `<h1>Usuarios</h1>
@@ -18,7 +20,7 @@ const loadInitialTemplate = () => {
   body.innerHTML = template;
 };
 const getUsers = async () => {
-  const response = await response.json ();
+  const response = await response.JSON ();
   console.log (Users);
   const template = user =>
     `<li>${user.name}<button data-id="${user._id}">Eliminar</button></button></li>`;
