@@ -49,4 +49,4 @@ const eliminar = async () => {
     await user.remove ();
   }
 };
-eliminar ();
+//eliminar ();
