@@ -23,5 +23,5 @@ app.get ('*', (req, res) => {
 });
 
 app.listen (port, () => {
-  console.log ('arrancando la aplicacion');
+  console.log ('arrancando la aplicación');
 });
