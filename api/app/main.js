@@ -1,17 +1,13 @@
-//const {json, response} = require ('express');
-//const Users = require ('../User');
-
-const {response} = require ('express');
-
 const loadInitialTemplate = () => {
-  const template = `<h1>Usuarios</h1>
+  const template = `
+  <h1>Usuarios</h1>
     <form id="user-form">
     <div>
     <label>Nombre</label>
-  <input type="text" id="name" /></div>
+  <input name ="name"type="text" id="name" /></div>
   <div>
   <label>Apellido</label>
-<input type="text" id="lastname" /></div>
+<input name="lastname" type="text" id="lastname" /></div>
   <div><input type="submit" value="Enviar" /></div>
 </form>
 <ul id="user-list"></ul>
@@ -20,16 +16,17 @@ const loadInitialTemplate = () => {
   body.innerHTML = template;
 };
 const getUsers = async () => {
-  const response = await response.JSON ();
-  console.log (Users);
+  const response = await fetch ('/users');
+  const users = await response.json ();
+  console.log (users);
   const template = user =>
-    `<li>${user.name}<button data-id="${user._id}">Eliminar</button></button></li>`;
-  const userList = document.getElementsByID ('user-list');
+    `<li>${user.name} ${user.lastname}<button data-id="${user._id}">Eliminar</button></button></li>`;
+  const userList = document.getElementById ('user-list');
   userList.innerHTML = users.map (user => template (user)).join ('');
 };
 const addFormListener = () => {
-  const userform = document.getElementsByID ('user-form');
-  userform.onsubmit = async e => {
+  const userForm = document.getElementById ('user-form');
+  userForm.onsubmit = async e => {
     e.preventDefault ();
     const formData = new FormData (userForm);
     const data = Object.fromEntries (formData.entries ());
@@ -40,12 +37,12 @@ const addFormListener = () => {
         'Content-type': 'application/json',
       },
     });
-    userform.reset ();
+    userForm.reset ();
     getUsers ();
   };
 };
 window.onload = () => {
-  loadInitialTemplate;
-  addFormListener;
+  loadInitialTemplate ();
+  addFormListener ();
   getUsers ();
 };
