@@ -26,7 +26,7 @@ app.post ('/register', async (req, res) => {
       password: hashed,
       salt,
     });
-    res.send ({_id: user.id});
+    res.send ({_id: user._id});
   } catch (err) {
     console.log (err);
     res.status (500).send (err.message);
