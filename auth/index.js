@@ -10,6 +10,7 @@ mongoose.connect (
 
 const app = express ();
 app.use (express.json ());
+const signedToken = _id => jwt.sign ({_id}, 'mi-stringsecreto');
 
 app.post ('/register', async (req, res) => {
   const {body} = req;
@@ -26,7 +27,30 @@ app.post ('/register', async (req, res) => {
       password: hashed,
       salt,
     });
-    res.send ({_id: user._id});
+
+    const signed = signedToken (user._id);
+    res.status (201).send (signed);
+  } catch (err) {
+    console.log (err);
+    res.status (500).send (err.message);
+  }
+});
+
+app.post ('/login', async (req, res) => {
+  const {body} = req;
+  try {
+    const user = await User.findOne ({email: body.email});
+    if (!user) {
+      res.status (403).send ('Usuario y/o contraseña invalida');
+    } else {
+      const isMatch = await bcrypt.compare (body.password, user.password);
+      if (isMatch) {
+        const signed = signedToken (user._id);
+        res.status (200).send (signed);
+      } else {
+        res.status (403).send ('Usuario y/o contraseña invalida');
+      }
+    }
   } catch (err) {
     console.log (err);
     res.status (500).send (err.message);
