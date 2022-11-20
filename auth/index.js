@@ -10,6 +10,10 @@ mongoose.connect (
 
 const app = express ();
 app.use (express.json ());
+const validateJwt = expressJwt.expressjwt ({
+  secret: 'mi-stringsecreto',
+  algorithms: ['HS256'],
+});
 const signedToken = _id => jwt.sign ({_id}, 'mi-stringsecreto');
 
 app.post ('/register', async (req, res) => {
@@ -55,6 +59,26 @@ app.post ('/login', async (req, res) => {
     console.log (err);
     res.status (500).send (err.message);
   }
+});
+const findAndAssignUser = async (req, res, net) => {
+  try {
+    const user = await User.findById (req.user._id);
+    if (!user) {
+      return res.status (401).end ();
+    }
+    req.user = user;
+    next ();
+  } catch (e) {
+    next (e);
+  }
+};
+
+const isAuthenticated = express.Router ().use (validateJwt, findAndAssignUser);
+
+app.get ('/lele', isAuthenticated, (req, res) => {
+  (req, res) => {
+    res.send (req.user);
+  };
 });
 
 app.listen (3000, () => {
