@@ -7,11 +7,12 @@ const User = require ('./user.model');
 const app = express ();
 app.use (express.json ());
 
+// validando el token
 const validateJwt = expressJwt.expressjwt ({
-  secret: process.env.SECRET,
+  secret: process.env.SECRET1,
   algorithms: ['HS256'],
 });
-const signedToken = _id => jwt.sign ({_id}, 'process.env.SECRET');
+const signedToken = _id => jwt.sign ({_id}, process.env.SECRET1); //firmando token con el ID del usuario
 
 const findAndAssignUser = async (req, res, next) => {
   try {
@@ -52,7 +53,6 @@ const Auth = {
   },
 
   // endpoint de registro de usuarios ///////////
-
   register: async (req, res) => {
     const {body} = req;
     console.log ({body});
