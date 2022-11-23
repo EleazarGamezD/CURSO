@@ -58,15 +58,14 @@ const addFormListener = () => {
     getAnimals ();
   };
 };
-const chekLogin = () => {
-  localStorage.getItem ('jwt');
-};
+const checkLogin = () => localStorage.getItem ('jwt');
+
 const animaIsPage = () => {
   loadInitialTemplate ();
   addFormListener ();
   getAnimals ();
 };
-const LoadnLoginTemplate = () => {
+const loadLoginTemplate = () => {
   const template = `
 		<h1>Login</h1>
 		<form id="login-form">
@@ -86,10 +85,11 @@ const LoadnLoginTemplate = () => {
   body.innerHTML = template;
 };
 
-window.onload = () => {
+Window.onload = () => {
+  const isLoggedIn = checkLogin ();
   if (isLoggedIn) {
     animaIsPage ();
   } else {
-    LoadnLoginTemplate ();
+    loadLoginTemplate ();
   }
 };

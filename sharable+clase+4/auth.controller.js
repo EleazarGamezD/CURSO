@@ -6,13 +6,13 @@ const User = require ('./user.model');
 
 const app = express ();
 app.use (express.json ());
-
+console.log (process.env.SECRET);
 // validando el token
 const validateJwt = expressJwt.expressjwt ({
-  secret: process.env.SECRET1,
+  secret: process.env.SECRET,
   algorithms: ['HS256'],
 });
-const signedToken = _id => jwt.sign ({_id}, process.env.SECRET1); //firmando token con el ID del usuario
+const signedToken = _id => jwt.sign ({_id}, process.env.SECRET); //firmando token con el ID del usuario
 
 const findAndAssignUser = async (req, res, next) => {
   try {
