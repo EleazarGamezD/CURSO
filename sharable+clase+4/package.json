@@ -15,8 +15,5 @@
     "mongoose": "^6.2.8"
   },
   "keywords": [],
-  "description": "",
-  "devDependencies": {
-    "@types/express-jwt": "^7.4.2"
-  }
+  "description": ""
 }

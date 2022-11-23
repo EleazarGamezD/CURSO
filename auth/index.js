@@ -11,10 +11,10 @@ mongoose.connect (
 const app = express ();
 app.use (express.json ());
 const validateJwt = expressJwt.expressjwt ({
-  secret: 'mi-stringsecreto',
+  secret: process.env.SECRET,
   algorithms: ['HS256'],
 });
-const signedToken = _id => jwt.sign ({_id}, 'mi-stringsecreto');
+const signedToken = _id => jwt.sign ({_id}, process.env.SECRET);
 
 app.post ('/register', async (req, res) => {
   const {body} = req;
