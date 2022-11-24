@@ -65,6 +65,42 @@ const animaIsPage = () => {
   addFormListener ();
   getAnimals ();
 };
+
+const loadRegisterTemplate = () => {
+  const template = `
+		<h1>Registro</h1>
+		<form id="register-form">
+			<div>
+				<label>Correo</label>
+				<input name="email" />
+			</div>
+			<div>
+				<label>Contraseña</label>
+				<input type="password" name="password" />
+			</div>
+			<button type="submit">Enviar</button>
+		</form>
+    <a href="#" id="login">Iniciar Sesión</a>
+		<div id ="error"></div>
+	`;
+const body = document.getElementsByTagName ('body')[0];
+body.innerHTML = template;
+
+};
+const addRegisterListener = () => {};
+const gotoLoginListener = () => {};
+
+const registerPage = () => {
+  registerTemplate ();
+  registerListener ();
+  gotoLoginListener ();
+};
+const loginPage = () => {
+  loadLoginTemplate ();
+  addLoginListener ();
+  gotoRegisterListener ();
+};
+
 const loadLoginTemplate = () => {
   const template = `
 		<h1>Login</h1>
@@ -79,10 +115,41 @@ const loadLoginTemplate = () => {
 			</div>
 			<button type="submit">Enviar</button>
 		</form>
+    <a href="#" id="register">Registrarse</a>
 		<div id ="error"></div>
 	`;
   const body = document.getElementsByTagName ('body')[0];
   body.innerHTML = template;
+};
+const gotoRegisterListener = () => {
+  const gotoRegister = document.getElementById ('register');
+  gotoRegister.onclick = async e => {
+    e.preventDefault ();
+    registerPage ();
+  };
+};
+
+const addLoginListener = () => {
+  const loginForm = document.getElementById ('login-form');
+  loginForm.onsubmit = async e => {
+    e.preventDefault ();
+    const formData = new FormData (loginForm);
+    const data = Object.fromEntries (formData.entries ());
+    const response = await fetch ('/login', {
+      method: 'POST',
+      body: JSON.stringify (data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const responseData = await response.text ();
+    if (response.status >= 300) {
+      const errorNode = document.getElementById ('error');
+      errorNode.innerHTML = responseData;
+    } else {
+      console.log (responseData);
+    }
+  };
 };
 
 window.onload = () => {
@@ -90,6 +157,6 @@ window.onload = () => {
   if (isLoggedIn) {
     animaIsPage ();
   } else {
-    loadLoginTemplate ();
+    loginPage ();
   }
 };
