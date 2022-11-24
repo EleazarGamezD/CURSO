@@ -19,7 +19,11 @@ const loadInitialTemplate = () => {
 };
 
 const getAnimals = async () => {
-  const response = await fetch ('/animals');
+  const response = await fetch ('/animals', {
+    headers: {
+      Authorization: localStorage.getItem ('jwt'),
+    },
+  });
   const animals = await response.json ();
   const template = animal => `
 		<li>
@@ -34,6 +38,9 @@ const getAnimals = async () => {
     animalNode.onclick = async e => {
       await fetch (`/animals/${animal._id}`, {
         method: 'DELETE',
+        headers: {
+          Authorization: localStorage.getItem ('jwt'),
+        },
       });
       animalNode.parentNode.remove ();
       alert ('Eliminado con éxito');
@@ -52,6 +59,7 @@ const addFormListener = () => {
       body: JSON.stringify (data),
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem ('jwt'),
       },
     });
     animalForm.reset ();
@@ -65,6 +73,8 @@ const animaIsPage = () => {
   addFormListener ();
   getAnimals ();
 };
+
+//// seccion de codigo equivalente al pagina de Login /acceso / inicio de sesion
 
 const loadRegisterTemplate = () => {
   const template = `
@@ -83,24 +93,52 @@ const loadRegisterTemplate = () => {
     <a href="#" id="login">Iniciar Sesión</a>
 		<div id ="error"></div>
 	`;
-const body = document.getElementsByTagName ('body')[0];
-body.innerHTML = template;
-
+  const body = document.getElementsByTagName ('body')[0];
+  body.innerHTML = template;
 };
-const addRegisterListener = () => {};
+
+//// Fin de sección de código equivalente al pagina de Login /acceso / inicio de sesion
+//// Inicio de seccion de codigo equivalente a la funcion de Registro "Crear" de usuario
+const addRegisterListener = () => {
+  const registerForm = document.getElementById ('register-form');
+  registerForm.onsubmit = async e => {
+    e.preventDefault ();
+    const registerData = new FormData (registerForm);
+    const data = Object.fromEntries (registerData.entries ());
+    const response = await fetch ('/register', {
+      method: 'POST',
+      body: JSON.stringify (data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const responseData = await response.text ();
+    if (response.status >= 300) {
+      const errorNode = document.getElementById ('error');
+      errorNode.innerHTML = responseData;
+    } else {
+      localStorage.setItem ('jwt', `Bearer ${responseData}`);
+      animaIsPage ();
+    }
+  };
+};
+
 const gotoLoginListener = () => {};
 
+/// llamado a la pagina de registro
 const registerPage = () => {
-  registerTemplate ();
-  registerListener ();
+  loadRegisterTemplate ();
+  addRegisterListener ();
   gotoLoginListener ();
 };
+
+/// llamando a la pagina de login / acceso
 const loginPage = () => {
   loadLoginTemplate ();
   addLoginListener ();
   gotoRegisterListener ();
 };
-
+//// seccion de codigo para cargar pagina de Registro "crear" usuario
 const loadLoginTemplate = () => {
   const template = `
 		<h1>Login</h1>
@@ -123,7 +161,7 @@ const loadLoginTemplate = () => {
 };
 const gotoRegisterListener = () => {
   const gotoRegister = document.getElementById ('register');
-  gotoRegister.onclick = async e => {
+  gotoRegister.onclick = e => {
     e.preventDefault ();
     registerPage ();
   };
@@ -147,7 +185,8 @@ const addLoginListener = () => {
       const errorNode = document.getElementById ('error');
       errorNode.innerHTML = responseData;
     } else {
-      console.log (responseData);
+      localStorage.setItem ('jwt', `Bearer ${responseData}`);
+      animaIsPage ();
     }
   };
 };

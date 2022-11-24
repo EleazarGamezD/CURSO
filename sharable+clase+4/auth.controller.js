@@ -6,7 +6,7 @@ const User = require ('./user.model');
 
 const app = express ();
 app.use (express.json ());
-console.log (process.env.JWT_SECRET); // secret, toco convertirlo en string para poder usar la funcion
+console.log (process.env.JWT_SECRET); // secret, toco convertirlo en string para poder usar la función
 // validando el token
 const validateJwt = expressJwt.expressjwt ({
   secret: 'process.env.SECRET',
