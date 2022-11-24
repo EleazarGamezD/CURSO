@@ -85,7 +85,7 @@ const loadLoginTemplate = () => {
   body.innerHTML = template;
 };
 
-Window.onload = () => {
+window.onload = () => {
   const isLoggedIn = checkLogin ();
   if (isLoggedIn) {
     animaIsPage ();
