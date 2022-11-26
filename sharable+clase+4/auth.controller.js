@@ -10,7 +10,7 @@ console.log (process.env.JWT_SECRET); // secret, toco convertirlo en string para
 // validando el token
 const validateJwt = expressJwt.expressjwt ({
   secret: 'process.env.SECRET',
-  algorithms: ['sha1', 'RS256', 'HS256'],
+  algorithms: ['HS256'],
 });
 
 const signedToken = _id => jwt.sign ({_id}, 'process.env.SECRET'); //firmando token con el ID del usuario
@@ -37,14 +37,14 @@ const Auth = {
     try {
       const user = await User.findOne ({email: body.email});
       if (!user) {
-        res.status (403).send ('Usuario y/o contraseña invalida');
+        res.status (403).send ('Usuario y/o contraseña invalida..');
       } else {
         const isMatch = await bcrypt.compare (body.password, user.password);
         if (isMatch) {
           const signed = signedToken (user._id);
           res.status (200).send (signed);
         } else {
-          res.status (403).send ('Usuario y/o contraseña invalida');
+          res.status (403).send ('Usuario y/o contraseña invalida.');
         }
       }
     } catch (err) {
