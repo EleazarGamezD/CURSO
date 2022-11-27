@@ -154,7 +154,7 @@ const gotoRegisterListener = () => {
 //// inicio de código re factorizado para ejecutar Listener de login y Registro
 
 const authListener = action => () => {
-  const form = document.getElementById (`/${action}-form`);
+  const form = document.getElementById (`${action}-form`);
   form.onsubmit = async e => {
     e.preventDefault ();
     const formData = new FormData (form);
