@@ -7,17 +7,18 @@ const User = require ('./user.model');
 const app = express ();
 app.use (express.json ());
 console.log (process.env.SECRET); // secret, toco convertirlo en string para poder usar la función
+
 // validando el token
 const validateJwt = expressJwt.expressjwt ({
   secret: process.env.SECRET,
   algorithms: ['HS256'],
 });
 
-const signedToken = _id => jwt.sign ({_id}, process.env.SECRET); //firmando token con el ID del usuario
+const signToken = _id => jwt.sign ({_id}, process.env.SECRET); //firmando token con el ID del usuario
 
 const findAndAssignUser = async (req, res, next) => {
   try {
-    const user = await User.findById (req.user._id);
+    const user = await User.findById (req, user._id);
     if (!user) {
       return res.status (401).end ();
     }
@@ -41,7 +42,7 @@ const Auth = {
       } else {
         const isMatch = await bcrypt.compare (body.password, user.password);
         if (isMatch) {
-          const signed = signedToken (user._id);
+          const signed = signToken (user._id);
           res.status (200).send (signed);
         } else {
           res.status (403).send ('Usuario y/o contraseña invalida.');
@@ -70,7 +71,7 @@ const Auth = {
         salt,
       });
 
-      const signed = signedToken (user._id);
+      const signed = signToken (user._id);
       res.status (201).send (signed);
     } catch (err) {
       console.log (err);
