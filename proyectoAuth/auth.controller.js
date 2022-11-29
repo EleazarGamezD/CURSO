@@ -14,20 +14,12 @@ const validateJwt = expressJwt.expressjwt ({
   algorithms: ['HS256'],
 });
 
-<<<<<<< HEAD
 const signedToken = _id => jwt.sign ({_id}, SECRET); //firmando token con el ID del usuario
 
 const findAndAssignUser = async (req, res, next) => {
   try {
     console.log (req);
     const user = await User.findById (req.auth._id);
-=======
-const signToken = _id => jwt.sign ({_id}, process.env.SECRET); //firmando token con el ID del usuario
-
-const findAndAssignUser = async (req, res, next) => {
-  try {
-    const user = await User.findById (req, user._id);
->>>>>>> c06a4859ae4ee1ea12ebfbdcc7da65eb514b37ab
     if (!user) {
       return res.status (401).end ();
     }
