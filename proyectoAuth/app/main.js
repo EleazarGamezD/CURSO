@@ -13,9 +13,20 @@ const loadInitialTemplate = () => {
 			<button type="submit">Enviar</button>
 		</form>
 		<ul id="animal-list"></ul>
+    <a href="#" id="logout">Cerrar Sesión</a>
 	`;
   const body = document.getElementsByTagName ('body')[0];
   body.innerHTML = template;
+};
+
+////seccion de codigo equivalente a funcion de cerrar sesion////
+const gotoLogoutListener = () => {
+  const gotoLogout = document.getElementById ('logout');
+  gotoLogout.onclick = e => {
+    e.preventDefault ();
+    localStorage.removeItem ('jwt');
+    loginPage ();
+  };
 };
 
 // inicio del  bloque de código referente a listener de form de animales
@@ -76,6 +87,7 @@ const animalIsPage = () => {
   loadInitialTemplate ();
   addFormListener ();
   getAnimals ();
+  gotoLogoutListener ();
 };
 
 //// seccion de codigo equivalente al pagina de Login /acceso / inicio de sesion
@@ -175,7 +187,7 @@ const authListener = action => () => {
     } else {
       localStorage.setItem ('jwt', `Bearer ${responseData}`);
       console.log (localStorage.getItem ('jwt'));
-      animaIsPage ();
+      animalIsPage ();
     }
   };
 };

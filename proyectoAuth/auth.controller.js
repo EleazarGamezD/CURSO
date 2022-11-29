@@ -6,6 +6,7 @@ const User = require ('./user.model');
 const SECRET = process.env.SECRET || 'mi-secret';
 const app = express ();
 app.use (express.json ());
+
 console.log (process.env.SECRET); // secret, toco convertirlo en string para poder usar la función
 
 // validando el token
@@ -44,7 +45,7 @@ const Auth = {
       } else {
         const isMatch = await bcrypt.compare (body.password, user.password);
         if (isMatch) {
-          const signed = signToken (user._id);
+          const signed = signedToken (user._id);
           res.status (200).send (signed);
         } else {
           res.status (403).send ('Usuario y/o contraseña invalida.');
