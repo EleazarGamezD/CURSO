@@ -14,12 +14,20 @@ const validateJwt = expressJwt.expressjwt ({
   algorithms: ['HS256'],
 });
 
+<<<<<<< HEAD
 const signedToken = _id => jwt.sign ({_id}, SECRET); //firmando token con el ID del usuario
 
 const findAndAssignUser = async (req, res, next) => {
   try {
     console.log (req);
     const user = await User.findById (req.auth._id);
+=======
+const signToken = _id => jwt.sign ({_id}, process.env.SECRET); //firmando token con el ID del usuario
+
+const findAndAssignUser = async (req, res, next) => {
+  try {
+    const user = await User.findById (req, user._id);
+>>>>>>> c06a4859ae4ee1ea12ebfbdcc7da65eb514b37ab
     if (!user) {
       return res.status (401).end ();
     }
@@ -44,7 +52,7 @@ const Auth = {
       } else {
         const isMatch = await bcrypt.compare (body.password, user.password);
         if (isMatch) {
-          const signed = signedToken (user._id);
+          const signed = signToken (user._id);
           res.status (200).send (signed);
         } else {
           res.status (403).send ('Usuario y/o contraseña invalida.');
@@ -73,7 +81,7 @@ const Auth = {
         salt,
       });
 
-      const signed = signedToken (user._id);
+      const signed = signToken (user._id);
       res.status (201).send (signed);
     } catch (err) {
       console.log (err);

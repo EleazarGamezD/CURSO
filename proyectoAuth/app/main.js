@@ -42,7 +42,9 @@ const addFormListener = () => {
 
 const getAnimals = async () => {
   const response = await fetch ('/animals', {
-    headers: {Authorization: localStorage.getItem ('jwt')},
+    headers: {
+      Authorization: localStorage.getItem ('jwt'),
+    },
   });
   const animals = await response.json ();
   const template = animal => `
@@ -70,7 +72,7 @@ const getAnimals = async () => {
 
 const checkLogin = () => localStorage.getItem ('jwt');
 
-const animaIsPage = () => {
+const animalIsPage = () => {
   loadInitialTemplate ();
   addFormListener ();
   getAnimals ();
@@ -172,6 +174,7 @@ const authListener = action => () => {
       errorNode.innerHTML = responseData;
     } else {
       localStorage.setItem ('jwt', `Bearer ${responseData}`);
+      console.log (localStorage.getItem ('jwt'));
       animaIsPage ();
     }
   };
@@ -184,7 +187,7 @@ const addRegisterListener = authListener ('register');
 window.onload = () => {
   const isLoggedIn = checkLogin ();
   if (isLoggedIn) {
-    animaIsPage ();
+    animalIsPage ();
   } else {
     loginPage ();
   }
