@@ -3,21 +3,23 @@ const bcrypt = require ('bcrypt');
 const jwt = require ('jsonwebtoken');
 const expressJwt = require ('express-jwt');
 const User = require ('./user.model');
-
+const SECRET = process.env.SECRET || 'mi-secret';
 const app = express ();
 app.use (express.json ());
 console.log (process.env.SECRET); // secret, toco convertirlo en string para poder usar la función
+
 // validando el token
 const validateJwt = expressJwt.expressjwt ({
-  secret: process.env.SECRET,
+  secret: SECRET,
   algorithms: ['HS256'],
 });
 
-const signedToken = _id => jwt.sign ({_id}, process.env.SECRET); //firmando token con el ID del usuario
+const signedToken = _id => jwt.sign ({_id}, SECRET); //firmando token con el ID del usuario
 
 const findAndAssignUser = async (req, res, next) => {
   try {
-    const user = await User.findById (req.user._id);
+    console.log (req);
+    const user = await User.findById (req.auth._id);
     if (!user) {
       return res.status (401).end ();
     }
@@ -25,6 +27,7 @@ const findAndAssignUser = async (req, res, next) => {
     next ();
   } catch (e) {
     next (e);
+    return res.status (401).end ();
   }
 };
 
