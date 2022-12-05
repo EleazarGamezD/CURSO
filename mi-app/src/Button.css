@@ -1,0 +1,10 @@
+.btn {
+  transition: all 1 ease-in-out;
+  background-color: rgb(42, 10, 224);
+  color: azure;
+  border: none;
+  padding: 15px 25px;
+}
+.btn:hover {
+  background-color: rgb(7, 14, 14);
+}
