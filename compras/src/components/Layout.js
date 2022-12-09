@@ -9,7 +9,7 @@ const styles = {
     flexDirection: 'column',
   },
   container: {
-    whidth: '1200px',
+    width: '1200px',
     backgroundColor: '#CACACA',
   },
 };
@@ -19,7 +19,7 @@ class Layout extends Component {
     return (
       <div style={styles.layout}>
         <div style={styles.container}>
-          {this.props.children}asasdasdad
+          {this.props.children}
 
         </div>
 

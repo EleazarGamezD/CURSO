@@ -21,7 +21,7 @@ const styles = {
 class Carro extends Component {
   render () {
     const {carro, esCarroVisible, mostrarCarro} = this.props;
-    console.log (esCarroVisible);
+
     const cantidad = carro.reduce ((acc, el) => acc + el.cantidad, 0);
     return (
       <div>

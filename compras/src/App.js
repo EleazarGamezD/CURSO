@@ -64,8 +64,7 @@ class App extends Component {
 
   render () {
     const {esCarroVisible} = this.props;
-    console.log (this.state.esCarroVisible);
-    return (
+      return (
       <div>
         <NavBar
           carro={this.state.carro}
