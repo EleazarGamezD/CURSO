@@ -35,7 +35,7 @@ class App extends Component {
       //     cantidad: 1,
       //   },
     ],
-    esCarroVisible: 'false',
+    esCarroVisible: false,
   };
   agregarAlCarro = producto => {
     const {carro} = this.state;
