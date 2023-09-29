@@ -1,8 +1,10 @@
-const mongoose = require ('mongoose');
+import dotenv from 'dotenv';
 
-mongoose.connect (
-  'mongodb+srv://sa:21121733@cluster0.gschvgu.mongodb.net/myapp?retryWrites=true&w=majority'
-);
+const mongoose = require('mongoose');
+dotenv.config (); // este comando llama al archivo de variable de entorno.
+
+
+mongoose.connect ( process.env.MONGODB );
 
 const User = mongoose.model ('User', {
   username: String,
