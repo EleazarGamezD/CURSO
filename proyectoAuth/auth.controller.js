@@ -1,10 +1,12 @@
+require ('dotenv').config ();
 const express = require ('express');
 const bcrypt = require ('bcrypt');
 const jwt = require ('jsonwebtoken');
 const expressJwt = require ('express-jwt');
 const User = require ('./user.model');
-const SECRET = process.env.SECRET || 'mi-secret';
-const app = express ();
+const SECRET = process.env.SECRET ;
+const app = express();
+
 app.use (express.json ());
 
 console.log (process.env.SECRET); // secret, toco convertirlo en string para poder usar la función

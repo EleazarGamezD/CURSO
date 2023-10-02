@@ -94,26 +94,39 @@ const animalIsPage = () => {
 
 const loadRegisterTemplate = () => {
   const template = `
-		<h1>Registro</h1>
-		<form id="register-form">
-			<div>
-				<label>Correo</label>
-				<input name="email" />
-			</div>
-			<div>
-				<label>Contraseña</label>
-				<input type="password" name="password" />
-			</div>
-			<button type="submit">Enviar</button>
-		</form>
-    <a href="#" id="login">Iniciar Sesión</a>
-		<div id ="error"></div>
-	`;
-  const body = document.getElementsByTagName ('body')[0];
+  <div class="login-card">
+    <div class="card-header">
+		 <h1>Registro</h1>
+		</div>
+    <div class="card-body">
+      <form id="register-form">
+		  	<div class="form-group">
+			   	 <label for="username">Correo</label>
+				   <input type="text" name="email" id = 'username' required="" />
+			  </div>
+			  <div class="form-group">
+				   <label for="password">Contraseña</label>
+			    	<input type="password" name="password" required="" id="password"/>
+		    </div>
+           <div class="form-group">
+           <button type="submit" class="login-button">Enviar</button>
+    	     </div>
+      </form>
+      </div>
+            <div class="form-group">
+            <button class="login-button"><a href="#" id="login" >Iniciar Sesión</a></button>
+		</div>
+    <div class="form-group">
+    <div id ="error"></div>
+    </div>
+  </div>
+ 	`;
+ 
+  const body = document.getElementsByTagName('body')[0];
   body.innerHTML = template;
 };
 
-//// Fin de sección de código equivalente al pagina de Login /acceso / inicio de sesion
+// Fin de sección de código equivalente al pagina de Login /acceso / inicio de sesion
 
 const gotoLoginListener = () => {
   const gotoLogin = document.getElementById ('login');
@@ -136,28 +149,36 @@ const loginPage = () => {
   addLoginListener ();
   gotoRegisterListener ();
 };
-//// sección de código para cargar pagina de Registro "crear" usuario
+/// sección de código para cargar pagina de Registro "crear" usuario
 const loadLoginTemplate = () => {
   const template = `
-		<h1>Login</h1>
-		<form id="login-form">
-			<div>
-				<label>Correo</label>
-				<input name="email" />
+	<div class="login-card">
+   <div class="card-header">
+    <h1>Login</h1>
+<div class="card-body">
+		 <form  id="login-form">
+			<div class="form-group">
+				<label for="email">Correo</label>
+				<input name="email" type="text" id="useremail" required = ''/>
 			</div>
-			<div>
-				<label>Contraseña</label>
-				<input type="password" name="password" />
-			</div>
-			<button type="submit">Enviar</button>
-		</form>
-    <a href="#" id="register">Registrarse</a>
-		<div id ="error"></div>
+			 <div class="form-group">
+			  	<label for="password" >Contraseña</label>
+				  <input type="password" id="password" name="password" required="" />
+			 </div>
+       <div class="form-group">
+			<button type="submit" class="login-button">Enviar</button>
+		   </div>
+      </form>
+      <a href="#" id="register">Registrarse</a>
+		   <div id ="error"></div>
+     </div>
+     
+  </div>
 	`;
   const body = document.getElementsByTagName ('body')[0];
   body.innerHTML = template;
 };
-//// final de código para cargar pagina de registro "crear" usuario
+/// final de código para cargar pagina de registro "crear" usuario
 const gotoRegisterListener = () => {
   const gotoRegister = document.getElementById ('register');
   gotoRegister.onclick = e => {
@@ -165,7 +186,7 @@ const gotoRegisterListener = () => {
     registerPage ();
   };
 };
-//// inicio de código re factorizado para ejecutar Listener de login y Registro
+/// inicio de código re factorizado para ejecutar Listener de login y Registro
 
 const authListener = action => () => {
   const form = document.getElementById (`${action}-form`);
@@ -194,7 +215,7 @@ const authListener = action => () => {
 const addLoginListener = authListener ('login');
 const addRegisterListener = authListener ('register');
 
-//// final de código re factorizado para ejecutar listener de login y registro
+/// final de código re factorizado para ejecutar listener de login y registro
 
 window.onload = () => {
   const isLoggedIn = checkLogin ();

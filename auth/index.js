@@ -1,16 +1,16 @@
-const express = require ('express');
+require ('dotenv').config ();
 const mongoose = require ('mongoose');
+const express = require ('express');
 const bcrypt = require ('bcrypt');
 const jwt = require ('jsonwebtoken');
 const expressJwt = require ('express-jwt');
-const User = require ('./user');
-mongoose.connect (
-  'process.env.MONGO_CONNECTION'
-);
+const User = require('./user');
 
+
+mongoose.connect ('process.env.MONGOATLAS')
+const port = 3000;
 const app = express ();
 app.use (express.json ());
-console.log (process.env.SECRET);
 const validateJwt = expressJwt.expressjwt ({
   secret: process.env.SECRET,
   algorithms: ['HS256'],
@@ -82,6 +82,6 @@ app.get ('/lele', isAuthenticated, (req, res) => {
   };
 });
 
-app.listen (3000, () => {
-  console.log ('listening in por 3000');
-});
+app.listen(port, () => {
+  console.log ('listening in port', port);
+})

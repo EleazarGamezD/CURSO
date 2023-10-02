@@ -1,3 +1,4 @@
+require ('dotenv').config ();
 const express = require ('express');
 const mongoose = require ('mongoose');
 const app = express ();
@@ -5,9 +6,13 @@ const Animal = require ('./animal.controller');
 const {Auth, isAuthenticated} = require ('./auth.controller');
 const port = 3000;
 
-mongoose.connect (
-  'mongodb+srv://sa:21121733@cluster0.gschvgu.mongodb.net/myapp?retryWrites=true&w=majority'
-);
+const mongoUrl ='mongodb+srv://' + process.env.MONGOATLAS;
+
+mongoose.connect(mongoUrl);
+
+// para que me lea los archivos css
+app.use (express.static (`${__dirname}`)); 
+
 
 app.use (express.json ());
 
@@ -33,5 +38,5 @@ app.get ('*', (req, res) => {
 });
 
 app.listen (port, () => {
-  console.log ('Arrancando la aplicación!');
+  console.log ('Arrancando la aplicación!, en el Puerto', port);
 });

@@ -1,13 +1,15 @@
-import dotenv from 'dotenv';
+
+require ('dotenv').config()
 const mongoose = require('mongoose');
 const express = require ('express');
 const user = require ('./user.controller');
 const app = express ();
 const port = 3000;
 
-dotenv.config (); // este comando llama al archivo de variable de entorno.
-app.use (express.json ());
-mongoose.connect ( process.env.MONGODB );
+
+app.use(express.json());
+
+mongoose.connect(process.env.MONGOATLAS)
 
 app.get ('/users', user.list);
 app.post ('/users', user.create);
@@ -24,5 +26,5 @@ app.get ('*', (req, res) => {
 });
 
 app.listen (port, () => {
-  console.log ('arrancando la aplicación');
+  console.log ('arrancando la aplicación en el puerto',port);
 });

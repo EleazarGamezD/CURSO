@@ -1,10 +1,11 @@
-import dotenv from 'dotenv';
+
 
 const mongoose = require('mongoose');
 dotenv.config (); // este comando llama al archivo de variable de entorno.
 
+const mongoUrl = 'mongodb+srv://' + process.env.MONGOATLAS;
 
-mongoose.connect ( process.env.MONGODB );
+mongoose.connect ( mongoUrl );
 
 const User = mongoose.model ('User', {
   username: String,
