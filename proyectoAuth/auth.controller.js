@@ -4,21 +4,21 @@ const bcrypt = require ('bcrypt');
 const jwt = require ('jsonwebtoken');
 const expressJwt = require ('express-jwt');
 const User = require ('./user.model');
-const SECRET = process.env.SECRET ;
 const app = express();
 
 app.use (express.json ());
 
 console.log (process.env.SECRET); // secret, toco convertirlo en string para poder usar la función
+const SECRET = process.env.SECRET ;
 
 // validando el token
 const validateJwt = expressJwt.expressjwt ({
-  secret: SECRET,
+  secret: process.env.SECRET,
   algorithms: ['HS256'],
 });
 
-const signedToken = _id => jwt.sign ({_id}, SECRET); //firmando token con el ID del usuario
-
+const signedToken = _id => jwt.sign ({_id}, process.env.SECRET); //firmando token con el ID del usuario
+console.log(signedToken)
 const findAndAssignUser = async (req, res, next) => {
   try {
     console.log (req);
@@ -62,13 +62,13 @@ const Auth = {
   // endpoint de registro de usuarios ///////////
   register: async (req, res) => {
     const {body} = req;
-    console.log ({body});
+    // console.log ({body});
     try {
       const isUser = await User.findOne ({email: body.email});
       if (isUser) {
         return res.status (403).send ('usuario ya existe ');
       }
-      const salt = await bcrypt.genSalt ();
+      const salt = await bcrypt.genSalt();
       const hashed = await bcrypt.hash (body.password, salt);
       const user = await User.create ({
         email: body.email,

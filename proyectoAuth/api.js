@@ -8,6 +8,7 @@ const port = 3000;
 
 const mongoUrl ='mongodb+srv://' + process.env.MONGOATLAS;
 
+mongoose.set('strictQuery', false);
 mongoose.connect(mongoUrl);
 
 // para que me lea los archivos css

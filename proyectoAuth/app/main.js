@@ -1,19 +1,31 @@
 const loadInitialTemplate = () => {
-  const template = `
-		<h1>Animales</h1>
+  const template = `<div class="login-card">
+	 <div class="card-header">	
+  <h1>Animales</h1>
+  </div>
+  <div class="card-body">
 		<form id="animal-form">
-			<div>
-				<label>Nombre</label>
-				<input name="name" />
+			<div class="form-group">
+				<label >Nombre</label>
+				<input type="text" id="username" name="name" />
 			</div>
-			<div>
+			<div class="form-group" >
 				<label>Tipo</label>
-				<input name="type" />
+				<input type="text" id="username" name="type" />
 			</div>
-			<button type="submit">Enviar</button>
+      <div class="form-group">
+			<button type="submit" class="login-button" >Enviar</button>
+      </div>
 		</form>
-		<ul id="animal-list"></ul>
-    <a href="#" id="logout">Cerrar Sesión</a>
+    </div>
+    <div class="form-group">
+		<ul role="button" class="button-name" id="animal-list">
+    </ul>
+    </div>
+    <div class="form-button" >
+    <a href="#" id="logout" class="login-button" >Cerrar Sesión</a>
+    </div>
+    </div>
 	`;
   const body = document.getElementsByTagName ('body')[0];
   body.innerHTML = template;
@@ -60,7 +72,7 @@ const getAnimals = async () => {
   const animals = await response.json ();
   const template = animal => `
 		<li>
-			${animal.name} ${animal.type} <button data-id="${animal._id}">Eliminar</button>
+			${animal.name} ${animal.type} <button class="button" data-id="${animal._id}">Eliminar</button>
 		</li>
 	`;
 
@@ -75,7 +87,8 @@ const getAnimals = async () => {
           Authorization: localStorage.getItem ('jwt'),
         },
       });
-      animalNode.parentNode.remove ();
+      animalNode.parentNode.remove();
+      // getAnimals()
       alert ('Eliminado con éxito');
     };
   });
@@ -97,32 +110,29 @@ const loadRegisterTemplate = () => {
   <div class="login-card">
     <div class="card-header">
 		 <h1>Registro</h1>
-		</div>
-    <div class="card-body">
+		   <div class="card-body">
       <form id="register-form">
 		  	<div class="form-group">
 			   	 <label for="username">Correo</label>
-				   <input type="text" name="email" id = 'username' required="" />
+				   <input type="text" name="email" id = 'useremail' required="" />
 			  </div>
 			  <div class="form-group">
-				   <label for="password">Contraseña</label>
+				    <label for="password">Contraseña</label>
 			    	<input type="password" name="password" required="" id="password"/>
-		    </div>
+		       </div>
            <div class="form-group">
-           <button type="submit" class="login-button">Enviar</button>
-    	     </div>
-      </form>
-      </div>
-            <div class="form-group">
-            <button class="login-button"><a href="#" id="login" >Iniciar Sesión</a></button>
-		</div>
-    <div class="form-group">
-    <div id ="error"></div>
-    </div>
-  </div>
+           <button type="submit" class="login-button">Enviar / Registrar</button>
+    	     </div>           
+           </form>
+           <div class="form-button" >
+           <a  href="#" id="login" class="login-button" >Volver a Iniciar Sesión</a></div>
+           </div> <br>
+           <div class="link"  id ="error"></div>
+           </div>
+           </div>
  	`;
- 
-  const body = document.getElementsByTagName('body')[0];
+
+  const body = document.getElementsByTagName ('body')[0];
   body.innerHTML = template;
 };
 
@@ -132,7 +142,7 @@ const gotoLoginListener = () => {
   const gotoLogin = document.getElementById ('login');
   gotoLogin.onclick = e => {
     e.preventDefault ();
-    registerPage ();
+    loginPage();
   };
 };
 
@@ -152,10 +162,11 @@ const loginPage = () => {
 /// sección de código para cargar pagina de Registro "crear" usuario
 const loadLoginTemplate = () => {
   const template = `
+  
 	<div class="login-card">
    <div class="card-header">
     <h1>Login</h1>
-<div class="card-body">
+     <div class="card-body">
 		 <form  id="login-form">
 			<div class="form-group">
 				<label for="email">Correo</label>
@@ -164,16 +175,18 @@ const loadLoginTemplate = () => {
 			 <div class="form-group">
 			  	<label for="password" >Contraseña</label>
 				  <input type="password" id="password" name="password" required="" />
-			 </div>
+			    </div>
        <div class="form-group">
 			<button type="submit" class="login-button">Enviar</button>
 		   </div>
       </form>
-      <a href="#" id="register">Registrarse</a>
-		   <div id ="error"></div>
+      <div class="form-button"  >
+      <a href="#" alagin-content:center  id="register" class="login-button">Registrarse</a>
+		  </div> <br>
+      <div id ="error"></div>
      </div>
-     
-  </div>
+     </div>
+  
 	`;
   const body = document.getElementsByTagName ('body')[0];
   body.innerHTML = template;

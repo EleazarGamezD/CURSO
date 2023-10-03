@@ -6,11 +6,15 @@ const jwt = require ('jsonwebtoken');
 const expressJwt = require ('express-jwt');
 const User = require('./user');
 
+const mongoUrl = 'mongodb+srv://' + process.env.MONGOATLAS;
+console.log(mongoUrl,{ssl:true})
+mongoose.set('strictQuery', false);
+mongoose.connect(mongoUrl, { ssl: true })
 
-mongoose.connect ('process.env.MONGOATLAS')
 const port = 3000;
 const app = express ();
-app.use (express.json ());
+app.use(express.json());
+console.log (process.env.SECRET)
 const validateJwt = expressJwt.expressjwt ({
   secret: process.env.SECRET,
   algorithms: ['HS256'],
