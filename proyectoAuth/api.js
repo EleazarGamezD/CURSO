@@ -6,14 +6,13 @@ const Animal = require ('./animal.controller');
 const {Auth, isAuthenticated} = require ('./auth.controller');
 const port = 3000;
 
-const mongoUrl ='mongodb+srv://' + process.env.MONGOATLAS;
+const mongoUrl = 'mongodb+srv://' + process.env.MONGOATLAS;
 
-mongoose.set('strictQuery', false);
-mongoose.connect(mongoUrl);
+mongoose.set ('strictQuery', false);
+mongoose.connect (mongoUrl, {ssl: true});
 
 // para que me lea los archivos css
-app.use (express.static (`${__dirname}`)); 
-
+app.use (express.static (`${__dirname}`));
 
 app.use (express.json ());
 

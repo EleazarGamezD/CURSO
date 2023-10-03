@@ -18,6 +18,7 @@ const styles = {
 class NavBar extends Component {
   render () {
     const {carro, esCarroVisible, mostrarCarro} = this.props;
+    console.log(this.props)
     return (
       <nav style={styles.nav}>
         <Logo />

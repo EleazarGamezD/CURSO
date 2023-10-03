@@ -1,3 +1,4 @@
+
 const Animals = require('./animal.model')
 
 const Animal = {

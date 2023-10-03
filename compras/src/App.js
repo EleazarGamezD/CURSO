@@ -27,44 +27,46 @@ class App extends Component {
         img: '/productos/lechuga.jpg',
       },
     ],
-    carro: [
-      //   {
-      //     name: 'Lechuga',
-      //     price: 570,
-      //     img: '/productos/lechuga.jpg',
-      //     cantidad: 1,
-      //   },
-    ],
+    carro: [ ],
+    
     esCarroVisible: false,
   };
   agregarAlCarro = producto => {
-    const {carro} = this.state;
-    if (carro.find (x => x.name === producto.name)) {
-      const newCarro = carro.map (
+    const { carro } = this.state;
+    if (carro.find(x => x.name === producto.name)) {
+      const newCarro = carro.map(
         x =>
           x.name === producto.name
             ? {
-                ...x,
-                cantidad: x.cantidad + 1,
-              }
+              ...x,
+              cantidad: x.cantidad + 1,
+            }
             : x
       );
-      return this.setState ({carro: newCarro});
+      return this.setState({ carro: newCarro });
     }
-    return this.setState ({
-      carro: this.state.carro.concat ({...producto, cantidad: 1}),
+    return this.setState({
+      carro: this.state.carro.concat({ ...producto, cantidad: 1 }),
     });
   };
-  mostrarCarro = () => {
+
+ mostrarCarro = () => {
+  console.log ('Estado actual de esCarroVisible:', this.state.esCarroVisible);
+  this.setState ({esCarroVisible: !this.state.esCarroVisible}, () => {
+    console.log ('Nuevo estado de esCarroVisible:', this.state.esCarroVisible);
     if (this.state.carro.length) {
+     console.log ('El carro no está vacío, no se cambia el estado.');
       return;
     }
-    this.setState ({esCarroVisible: !this.state.esCarroVisible});
-  };
+  });
+};
 
-  render () {
-    const {esCarroVisible} = this.props;
-      return (
+  
+  render() {
+   const {esCarroVisible} = this.state;
+
+  
+    return (
       <div>
         <NavBar
           carro={this.state.carro}
@@ -78,11 +80,28 @@ class App extends Component {
             agregarAlCarro={this.agregarAlCarro}
             productos={this.state.productos}
           />
+        
         </Layout>
-
       </div>
     );
+
+
+    // ------------------------------------------------------
+      
+
+    //       <Layout>
+    //         <Title />
+    //         <Productos
+    //           agregarAlCarro={this.agregarAlCarro}
+    //           productos={this.state.productos}
+    //         />
+    //         </Layout>
+
+    //       </div>
+    //     );
+    //   }
+    // }
+
   }
 }
-
 export default App;
